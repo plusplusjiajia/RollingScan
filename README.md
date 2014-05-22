@@ -35,19 +35,18 @@ RollingScan
 
 •	Disable the compaction and split for a table, drop a hint to use the RollingStoreFileScanner
 
+```java
 HTableDescriptor desc = new HTableDescriptor(tableName) ;
 
 //Disable auto-split
-
 desc.setValue(HConstants.HREGION_MAX_FILESIZE,String.valueOf(Long.MAX_VALUE));
 
 //disable major compaction
-
 desc.setValue(HConstants.MAJOR_COMPACTION_PERIOD, "0");
 
 //disable all compactions
-
 desc.setValue(“hbase.hstore.compaction.min”, Integer.Max);
+```
 
 •	Add the RollingScanRegionObserver into the coprocessors
 

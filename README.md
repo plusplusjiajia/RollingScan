@@ -33,6 +33,16 @@ The next question is how to provide user the `RollingStoreFileScanner` when user
 
 –	postOpen method: if the rolling scan is enabled, after the region is opened, the FirstKeySortedStoreFiles will be created for each store.
 
+```java
+// find out whether the rolling scan is enabled.
+HRegion region = e.getEnvironment().getRegion();
+HTableDescriptor htd = region.getTableDesc();
+byte[] value = htd.getValue(Bytes.toBytes(RollingScanConstants.ROLLING_SCAN));
+if (value != null) {
+      boolean rollingScanEnabled = Boolean.valueOf(Bytes.toString(value)).booleanValue();
+}
+```
+
 –	preStoreScannerOpen method: if the rolling scan is enabled, the RollingStoreFileScanner will be used instead.
 
 –	postClose methods.
